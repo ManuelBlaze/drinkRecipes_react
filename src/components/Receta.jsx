@@ -4,6 +4,8 @@ import { ModalContext } from "../context/ModalContext";
 
 import Modal from "@material-ui/core/Modal";
 import { makeStyles } from "@material-ui/core/styles";
+import Backdrop from "@material-ui/core/Backdrop";
+import Fade from "@material-ui/core/Fade";
 
 function getModalStyle() {
 	const top = 50;
@@ -17,6 +19,11 @@ function getModalStyle() {
 }
 
 const useStyles = makeStyles((theme) => ({
+	modal: {
+		display: "flex",
+		alignItems: "center",
+		justifyContent: "center",
+	},
 	paper: {
 		position: "absolute",
 		[theme.breakpoints.down("sm")]: {
@@ -89,12 +96,20 @@ const Receta = ({receta}) => {
 
                     <Modal
                         open={open}
+                        className={classes.modal}
+                        closeAfterTransition
+                        BackdropComponent={Backdrop}
+                        BackdropProps={{
+                        timeout: 1000,
+                        }}
                         onClose={() => {
                             setIdreceta(null);
                             setRecetaMod({});
                             handleClose();
                         }}
                     > 
+                    <Fade in={open}>
+
                         <div style={modalStyle} className={classes.paper}>
                             <h2>{recetaMod.strDrink}</h2>
                             <h3 className="mt-4">Instructions</h3>
@@ -109,6 +124,7 @@ const Receta = ({receta}) => {
                                 {   mostrarIngredientes(recetaMod) }
                             </ul>
                         </div>
+                    </Fade>
                     </Modal>
                 </div>
             </div>
