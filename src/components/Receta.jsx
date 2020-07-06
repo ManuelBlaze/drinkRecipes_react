@@ -19,7 +19,14 @@ function getModalStyle() {
 const useStyles = makeStyles((theme) => ({
 	paper: {
 		position: "absolute",
-		width: 600,
+		[theme.breakpoints.down("sm")]: {
+			width: "100%",
+		},
+		[theme.breakpoints.up("sm")]: {
+			width: 450,
+		},
+		maxHeight: 500,
+		overflowY: "auto",
 		backgroundColor: theme.palette.background.paper,
 		boxShadow: theme.shadows[5],
 		padding: theme.spacing(2, 4, 3),
@@ -42,7 +49,23 @@ const Receta = ({receta}) => {
     }
 
     //Extraer valores del context
-    const { setIdreceta }  = useContext(ModalContext);
+    const { recetaMod, setIdreceta, setRecetaMod } = useContext(ModalContext);
+
+    //Mostrar y formatear ingredientes
+    const mostrarIngredientes = recetaMod => {
+        let ingredientes = [];
+        for (let i = 1; i < 16; i++) {
+            if (recetaMod[`strIngredient${i}`]) {
+                ingredientes.push(
+					<li>
+						{recetaMod[`strIngredient${i}`]}{" "}
+						{recetaMod[`strMeasure${i}`]}
+					</li>
+				);   
+            }
+        }
+        return ingredientes;
+    }
 
     return (
         <div className="col-md-4 mb-3">
@@ -68,11 +91,23 @@ const Receta = ({receta}) => {
                         open={open}
                         onClose={() => {
                             setIdreceta(null);
+                            setRecetaMod({});
                             handleClose();
                         }}
                     > 
                         <div style={modalStyle} className={classes.paper}>
-                            <h1>Modal</h1>
+                            <h2>{recetaMod.strDrink}</h2>
+                            <h3 className="mt-4">Instructions</h3>
+                            <p>
+                                {recetaMod.strInstructions}
+                            </p>
+
+                            <img src={recetaMod.strDrinkThumb} alt="" className="img-fluid my-4"/>
+
+                            <h3>Ingredients</h3>
+                            <ul>
+                                {   mostrarIngredientes(recetaMod) }
+                            </ul>
                         </div>
                     </Modal>
                 </div>
