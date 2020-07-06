@@ -4,7 +4,7 @@ import { CategoriasContext } from '../context/CategoriasContext';
 
 const Formulario = () => {
 
-    const { } = useContext(CategoriasContext);
+    const { categorias } = useContext(CategoriasContext);
 
     return (
         <form
@@ -14,8 +14,8 @@ const Formulario = () => {
                 <legend>Search drinks by Category or Ingredients</legend>
             </fieldset>
 
-            <div className="row mt-4">
-                <div className="col-md-4">
+            <div className="row">
+                <div className="col-md-4 mt-4">
                     <input 
                         type="text" 
                         name="name" 
@@ -23,15 +23,21 @@ const Formulario = () => {
                         placeholder="Search by Ingredient"
                     />
                 </div>
-                <div className="col-md-4">
+                <div className="col-md-4 mt-4">
                     <select 
                         className="form-control"
                         name="category" 
                     >
                         <option value="">-- Select Category --</option>
+                        {categorias.map( categoria => (
+                            <option 
+                                key={categoria.strCategory} 
+                                value={categoria.strCategory}
+                            >{categoria.strCategory}</option>
+                        ))}
                     </select>
                 </div>
-                <div className="col-md-4">
+                <div className="col-md-4 mt-4">
                     <input 
                         type="submit" 
                         value="Search Drink" 
