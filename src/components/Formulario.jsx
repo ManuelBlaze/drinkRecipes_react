@@ -1,7 +1,11 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
+import { CategoriasContext } from '../context/CategoriasContext';
 
 const Formulario = () => {
+
+    const { } = useContext(CategoriasContext);
+
     return (
         <form
             className="col-12"
