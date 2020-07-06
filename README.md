@@ -1,3 +1,7 @@
+<h1>Drink Recipes </h1>
+Practice Project with React, consuming https://www.thecocktaildb.com/ API
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
